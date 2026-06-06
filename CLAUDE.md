@@ -142,6 +142,11 @@ npm run dist:mac:intel   # Intel .dmg
 Credentials live in a git-ignored `.env` (template: `.env.example`); the build
 auto-loads it and only notarizes when creds are present.
 
+**Windows** isn't built today but is achievable (the code is already
+`process.platform`-guarded; `build/icon.ico` exists). DISTRIBUTION.md → "Building for
+Windows" spells out the config change, where to build (Windows/CI, not Wine), the
+separate code-signing cert, and the platform-specific behavior to re-test.
+
 **Downloads are hosted on GitHub Releases** (repo `stevenowicki/wqxr-streamer`),
 under stable names (`WQXR-Streamer-AppleSilicon.dmg`, `-Intel.dmg`) so the website's
 `/releases/latest/download/...` links never break.

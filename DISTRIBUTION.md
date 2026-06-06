@@ -143,6 +143,55 @@ keep working.
    update them in `public/index.html` if you like.
 5. Ship any website changes: `npm run deploy:site` (see [CLAUDE.md](CLAUDE.md)).
 
+## Building for Windows (not currently built — here's what it would take)
+
+The app is plain Electron and already guards platform-specific code with
+`process.platform`, so a Windows build is achievable — it's just never been built or
+tested. If you want to tackle it:
+
+**1. Re-add the Windows target** to `electron-builder.config.cjs`:
+```js
+config.win = {
+  target: ['nsis'],        // NSIS installer; or 'portable' / 'zip'
+  icon: 'build/icon.ico',  // already generated, multi-size
+};
+```
+and a script in `package.json`:
+```json
+"dist:win": "electron-builder --win --config electron-builder.config.cjs"
+```
+
+**2. Build on Windows.** The reliable path is a Windows machine or a
+`windows-latest` GitHub Actions runner. electron-builder *can* cross-build Windows
+from macOS via Wine (`brew install --cask wine-stable`), but it's flaky — don't rely
+on it for a real release.
+
+**3. Code signing is separate from Apple.** Windows uses its own code-signing
+certificate — an OV or EV cert from a CA (DigiCert, Sectigo, …), a paid yearly thing.
+The Apple Developer ID does nothing here, and there is **no notarization** on Windows.
+- Unsigned is fine for a small audience: SmartScreen shows a one-time "unknown
+  publisher → More info → Run anyway" prompt.
+- To sign, set `CSC_LINK` (path to your `.pfx`/`.p12`) and `CSC_KEY_PASSWORD`;
+  electron-builder signs automatically. EV certs usually need a hardware token / cloud
+  HSM, which complicates CI.
+
+**4. Verify the platform-specific behavior** (none of this has run on Windows):
+- **Tray icon** uses the colored `assets/tray.png` (the template image is macOS-only).
+  Check it reads well in the system tray.
+- **The "breathing" pulse is macOS-only** — `startPulse()` in `tray.js` bails on
+  non-darwin. A contributor could add a colored animated tray for Windows.
+- **Popover positioning** — Windows' tray is bottom-right (taskbar), not the top menu
+  bar. `positionPopoverNear()` has a non-darwin branch that anchors above the tray;
+  confirm it lands correctly across taskbar positions and multiple monitors.
+- **Click-away & focus** — the `app.focus({ steal: true })` show trick is darwin-only;
+  Windows windows foreground normally on show, but verify blur-to-hide and
+  tray-click-to-toggle still feel right.
+- **Media keys / SMTC** — `navigator.mediaSession` maps to the Windows System Media
+  Transport Controls; confirm play/pause and metadata appear in the volume flyout.
+
+The cleanest shipping path is a `windows-latest` GitHub Actions job that runs
+`npm ci && npm run dist:win` and attaches the `.exe` to the release.
+
 ## Notes
 
 - App icon (`build/`) is the fan-made lockup; menu-bar/tray art (`assets/`) is the
