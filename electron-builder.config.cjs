@@ -50,6 +50,13 @@ const config = {
     entitlements: 'build/entitlements.mac.plist',
     entitlementsInherit: 'build/entitlements.mac.plist',
   },
+
+  // Windows: NSIS installer. Built in CI (windows-latest) via `npm run dist:win`.
+  // Code signing is wired to Azure Trusted Signing — see the conditional below.
+  win: {
+    target: ['nsis'],
+    icon: 'build/icon.ico',
+  },
 };
 
 // Enable notarization only when credentials are available. Provide either:
@@ -64,6 +71,23 @@ if (hasNotarizeCreds) {
   // Team id is taken from APPLE_TEAM_ID in the environment (electron-builder
   // prefers that over notarize.teamId, which it warns about).
   config.mac.notarize = true;
+}
+
+// Sign the Windows build with Azure Trusted Signing when its config is present
+// (set in CI from GitHub secrets). Auth comes from the standard Azure.Identity
+// env vars AZURE_TENANT_ID / AZURE_CLIENT_ID / AZURE_CLIENT_SECRET. Without these,
+// `npm run dist:win` produces an unsigned installer (fine for local testing).
+if (
+  process.env.AZURE_ENDPOINT &&
+  process.env.AZURE_CODE_SIGNING_NAME &&
+  process.env.AZURE_CERT_PROFILE_NAME
+) {
+  config.win.azureSignOptions = {
+    publisherName: process.env.AZURE_PUBLISHER_NAME, // must equal the cert's CN
+    endpoint: process.env.AZURE_ENDPOINT, // e.g. https://eus.codesigning.azure.net/
+    codeSigningAccountName: process.env.AZURE_CODE_SIGNING_NAME,
+    certificateProfileName: process.env.AZURE_CERT_PROFILE_NAME,
+  };
 }
 
 module.exports = config;

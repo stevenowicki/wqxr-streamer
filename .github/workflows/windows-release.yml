@@ -1,0 +1,75 @@
+name: Windows installer (build · sign · release)
+
+# Builds the Windows NSIS installer on a GitHub-hosted Windows runner, signs it
+# with Azure Trusted Signing, verifies the signature, and attaches it to a
+# GitHub Release. Runs automatically when a release is published, or on demand.
+#
+# Required repo secrets (Settings → Secrets and variables → Actions):
+#   AZURE_TENANT_ID          Entra (AAD) tenant id
+#   AZURE_CLIENT_ID          app registration (service principal) application id
+#   AZURE_CLIENT_SECRET      that app registration's client secret VALUE
+#   AZURE_ENDPOINT           e.g. https://eus.codesigning.azure.net/  (your region)
+#   AZURE_CODE_SIGNING_NAME  the Trusted Signing account name
+#   AZURE_CERT_PROFILE_NAME  the certificate profile name
+#   AZURE_PUBLISHER_NAME     your validated CN, e.g. "Steve Nowicki"
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag to attach the signed installer to
+        required: true
+        default: v1.0.0
+  release:
+    types: [published]
+
+permissions:
+  contents: write   # upload assets to the release
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build + sign the installer
+        run: npm run dist:win
+        env:
+          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          AZURE_ENDPOINT: ${{ secrets.AZURE_ENDPOINT }}
+          AZURE_CODE_SIGNING_NAME: ${{ secrets.AZURE_CODE_SIGNING_NAME }}
+          AZURE_CERT_PROFILE_NAME: ${{ secrets.AZURE_CERT_PROFILE_NAME }}
+          AZURE_PUBLISHER_NAME: ${{ secrets.AZURE_PUBLISHER_NAME }}
+
+      - name: Give the installer a stable asset name
+        shell: bash
+        run: |
+          set -e
+          src=$(ls dist/*.exe | head -1)
+          echo "Built: $src"
+          cp "$src" "dist/WQXR-Streamer-Setup.exe"
+
+      - name: Verify the Authenticode signature (fail if unsigned)
+        shell: pwsh
+        run: |
+          $sig = Get-AuthenticodeSignature "dist/WQXR-Streamer-Setup.exe"
+          $sig | Format-List Status, StatusMessage, SignerCertificate, TimeStamperCertificate
+          if ($sig.Status -ne 'Valid') { throw "Signature is '$($sig.Status)' — not Valid. Check the Azure secrets/role." }
+
+      - name: Attach to the release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.event.inputs.tag || github.event.release.tag_name }}
+        run: |
+          gh release upload "$TAG" "dist/WQXR-Streamer-Setup.exe" --clobber --repo "${{ github.repository }}"
+          echo "Uploaded WQXR-Streamer-Setup.exe to release $TAG"

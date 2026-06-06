@@ -142,10 +142,13 @@ npm run dist:mac:intel   # Intel .dmg
 Credentials live in a git-ignored `.env` (template: `.env.example`); the build
 auto-loads it and only notarizes when creds are present.
 
-**Windows** isn't built today but is achievable (the code is already
-`process.platform`-guarded; `build/icon.ico` exists). DISTRIBUTION.md → "Building for
-Windows" spells out the config change, where to build (Windows/CI, not Wine), the
-separate code-signing cert, and the platform-specific behavior to re-test.
+**Windows** builds + signs in CI: `.github/workflows/windows-release.yml` runs on a
+GitHub-hosted `windows-latest` runner, builds the NSIS installer (`npm run dist:win`),
+signs it with **Azure Trusted Signing** (`win.azureSignOptions`, fed from `AZURE_*`
+repo secrets), verifies the Authenticode signature, and attaches
+`WQXR-Streamer-Setup.exe` to the release — no PC needed. One-time Azure setup, the
+secret list, and the platform behavior still to test on Windows are in
+DISTRIBUTION.md → "Windows".
 
 **Downloads are hosted on GitHub Releases** (repo `stevenowicki/wqxr-streamer`),
 under stable names (`WQXR-Streamer-AppleSilicon.dmg`, `-Intel.dmg`) so the website's

@@ -143,54 +143,66 @@ keep working.
    update them in `public/index.html` if you like.
 5. Ship any website changes: `npm run deploy:site` (see [CLAUDE.md](CLAUDE.md)).
 
-## Building for Windows (not currently built — here's what it would take)
+## Windows: signed installer via Azure Trusted Signing + GitHub Actions
 
-The app is plain Electron and already guards platform-specific code with
-`process.platform`, so a Windows build is achievable — it's just never been built or
-tested. If you want to tackle it:
+Windows is wired up. `electron-builder.config.cjs` has the `win` (NSIS) target,
+`npm run dist:win` builds it, and **`.github/workflows/windows-release.yml`** builds +
+signs + attaches it to a release **on a GitHub-hosted Windows runner — you never need a
+PC.** Signing uses **Azure Trusted Signing** (cloud HSM, ~$10/mo); public-repo Actions
+minutes are free. (`build/icon.ico` is already generated.)
 
-**1. Re-add the Windows target** to `electron-builder.config.cjs`:
-```js
-config.win = {
-  target: ['nsis'],        // NSIS installer; or 'portable' / 'zip'
-  icon: 'build/icon.ico',  // already generated, multi-size
-};
-```
-and a script in `package.json`:
-```json
-"dist:win": "electron-builder --win --config electron-builder.config.cjs"
-```
+### One-time Azure setup (in the [Azure portal](https://portal.azure.com))
 
-**2. Build on Windows.** The reliable path is a Windows machine or a
-`windows-latest` GitHub Actions runner. electron-builder *can* cross-build Windows
-from macOS via Wine (`brew install --cask wine-stable`), but it's flaky — don't rely
-on it for a real release.
+1. **Trusted Signing account** — create one (search "Trusted Signing" / "Artifact
+   Signing" → Create). Note the **region** (it sets your endpoint: East US →
+   `https://eus.codesigning.azure.net/`, West Europe → `https://weu…`) and the
+   **account name**.
+2. **Identity validation** — on the account, give your user the **Trusted Signing
+   Identity Verifier** role (Access control (IAM)). Then account → **Identity
+   validations** → New → **Individual → Public**, complete the ID check (fast for
+   individuals, ~10–20 min). Wait for **Completed**.
+3. **Certificate profile** — account → Objects → **Certificate profiles** → Create →
+   **Public Trust** → pick your completed validation. Note the **profile name**; the
+   cert CN is your validated name (= `AZURE_PUBLISHER_NAME`).
+4. **App registration (CI identity)** — Entra ID → App registrations → New (e.g.
+   `wqxr-streamer-ci`). Note **Application (client) ID** + **Directory (tenant) ID**;
+   Certificates & secrets → New client secret → copy the **Value**.
+5. **Grant the signer role** — back on the Trusted Signing **account** → Access control
+   (IAM) → Add role assignment → **Trusted Signing Certificate Profile Signer** →
+   assign to the **app registration** (NOT your user; scope = the account).
 
-**3. Code signing is separate from Apple.** Windows uses its own code-signing
-certificate — an OV or EV cert from a CA (DigiCert, Sectigo, …), a paid yearly thing.
-The Apple Developer ID does nothing here, and there is **no notarization** on Windows.
-- Unsigned is fine for a small audience: SmartScreen shows a one-time "unknown
-  publisher → More info → Run anyway" prompt.
-- To sign, set `CSC_LINK` (path to your `.pfx`/`.p12`) and `CSC_KEY_PASSWORD`;
-  electron-builder signs automatically. EV certs usually need a hardware token / cloud
-  HSM, which complicates CI.
+### Repo secrets (Settings → Secrets and variables → Actions)
 
-**4. Verify the platform-specific behavior** (none of this has run on Windows):
-- **Tray icon** uses the colored `assets/tray.png` (the template image is macOS-only).
-  Check it reads well in the system tray.
-- **The "breathing" pulse is macOS-only** — `startPulse()` in `tray.js` bails on
-  non-darwin. A contributor could add a colored animated tray for Windows.
-- **Popover positioning** — Windows' tray is bottom-right (taskbar), not the top menu
-  bar. `positionPopoverNear()` has a non-darwin branch that anchors above the tray;
-  confirm it lands correctly across taskbar positions and multiple monitors.
-- **Click-away & focus** — the `app.focus({ steal: true })` show trick is darwin-only;
-  Windows windows foreground normally on show, but verify blur-to-hide and
-  tray-click-to-toggle still feel right.
-- **Media keys / SMTC** — `navigator.mediaSession` maps to the Windows System Media
-  Transport Controls; confirm play/pause and metadata appear in the volume flyout.
+| Secret | Value |
+|---|---|
+| `AZURE_TENANT_ID` | Directory (tenant) id |
+| `AZURE_CLIENT_ID` | App registration application id |
+| `AZURE_CLIENT_SECRET` | the client secret **value** |
+| `AZURE_ENDPOINT` | e.g. `https://eus.codesigning.azure.net/` |
+| `AZURE_CODE_SIGNING_NAME` | Trusted Signing account name |
+| `AZURE_CERT_PROFILE_NAME` | certificate profile name |
+| `AZURE_PUBLISHER_NAME` | your validated CN, e.g. `Steve Nowicki` |
 
-The cleanest shipping path is a `windows-latest` GitHub Actions job that runs
-`npm ci && npm run dist:win` and attaches the `.exe` to the release.
+### Cut the Windows build
+
+Publishing a release triggers it automatically. To run it for an existing release (or
+any time): **Actions → "Windows installer" → Run workflow → enter the tag** (e.g.
+`v1.0.0`). It builds, signs, **verifies the Authenticode signature** (the job fails if
+the installer isn't Valid-signed — so a bad secret/role can never ship an unsigned
+exe), and uploads **`WQXR-Streamer-Setup.exe`** to that release. To add a Windows button
+to the site, link `…/releases/latest/download/WQXR-Streamer-Setup.exe`.
+
+> SmartScreen note: signing removes "unknown publisher" immediately; the reputation
+> prompt fades as downloads accumulate under your stable signing identity.
+
+### Platform behavior to sanity-check (hasn't run on Windows yet)
+- **Tray icon** uses colored `assets/tray.png` (template image is macOS-only).
+- **The "breathing" pulse is macOS-only** (`startPulse()` bails on non-darwin).
+- **Popover positioning** — Windows' tray is bottom-right; `positionPopoverNear()`'s
+  non-darwin branch anchors above it — verify across taskbar positions / monitors.
+- **Click-away / focus** — the `app.focus({ steal: true })` trick is darwin-only.
+- **Media keys / SMTC** — `navigator.mediaSession` → Windows System Media Transport
+  Controls; confirm play/pause + metadata in the volume flyout.
 
 ## Notes
 
