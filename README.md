@@ -37,11 +37,18 @@ just packaged as a proper desktop app, using WQXR's own public endpoints.
 
 ```bash
 npm install
-npm start
+npm run restart   # kill any running instance, then start  (use this, not `npm start`)
 ```
 
 The app starts in the tray with no dock icon. Click the tray icon to open the player.
 Set `WQXR_DEBUG=1` to forward renderer console logs to the terminal.
+
+> Use `npm run restart` rather than `npm start`: the app persists in the tray, so a
+> plain `npm start` can defer to an already-running (stale) instance.
+
+**New here?** Read **[CLAUDE.md](CLAUDE.md)** — it covers the architecture (single
+hidden audio engine, view/main split), the load-bearing gotchas, and how to build,
+release, and deploy the site.
 
 ## Build installers (macOS)
 
