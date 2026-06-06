@@ -1,0 +1,20 @@
+{
+  "name": "wqxr-streamer",
+  "version": "1.0.0",
+  "description": "A clean, native desktop player for WQXR — New York's classical music station. Tray-first, with now-playing info and media-key support.",
+  "main": "src/main/main.js",
+  "author": "Steve Nowicki",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "restart": "pkill -f 'wqxr-streamer/node_modules/electron'; sleep 1; electron .",
+    "pack": "CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder --mac --arm64 --config electron-builder.config.cjs",
+    "dist:mac": "electron-builder --mac --arm64 --config electron-builder.config.cjs",
+    "dist:mac:intel": "electron-builder --mac --x64 --config electron-builder.config.cjs"
+  },
+  "devDependencies": {
+    "electron": "^33.4.11",
+    "electron-builder": "^25.1.8"
+  }
+}

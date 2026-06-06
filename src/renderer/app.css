@@ -1,0 +1,335 @@
+:root {
+  --bg: #14181f;
+  --bg-elev: #1c222c;
+  --line: #2a313d;
+  --text: #eef1f6;
+  --text-dim: #9aa4b2;
+  --text-faint: #6b7480;
+  --accent: #c9a24b; /* warm gold — a classical, concert-hall feel */
+  --accent-soft: rgba(201, 162, 75, 0.16);
+  --radius: 12px;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font);
+  color: var(--text);
+  background: var(--bg);
+  -webkit-user-select: none;
+  user-select: none;
+  overflow: hidden;
+}
+
+/* Frameless popover gets a subtle border + draggable top region. */
+body[data-mode="popover"] {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 14px 16px 16px;
+  gap: 12px;
+}
+
+/* ---- top bar ---- */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  -webkit-app-region: drag; /* drag the popover by its header */
+}
+
+.brand {
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  font-size: 13px;
+  color: var(--accent);
+}
+
+.stream-picker {
+  -webkit-app-region: no-drag;
+}
+
+#stream-select {
+  appearance: none;
+  background: var(--bg-elev);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 5px 26px 5px 10px;
+  font-size: 12px;
+  font-family: inherit;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='%239aa4b2'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+/* ---- now playing ---- */
+.now {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+}
+
+.artwork {
+  position: relative;
+  width: 132px;
+  height: 132px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+}
+
+.artwork img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none;
+}
+
+.artwork.has-image img {
+  display: block;
+}
+
+.artwork-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 44px;
+  color: var(--text-faint);
+}
+
+.artwork.has-image .artwork-fallback {
+  display: none;
+}
+
+.show-name {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  font-weight: 700;
+  min-height: 14px;
+}
+
+.track {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-height: 46px;
+}
+
+.track .composer {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.track .title {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.track .performers {
+  font-size: 12px;
+  color: var(--text-dim);
+  line-height: 1.35;
+  margin-top: 2px;
+}
+
+.show-link {
+  -webkit-app-region: no-drag;
+  font-size: 11px;
+  color: var(--text-faint);
+  text-decoration: none;
+  cursor: pointer;
+}
+.show-link:hover {
+  color: var(--accent);
+}
+
+/* ---- controls ---- */
+.controls {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    "play volume"
+    "play status";
+  align-items: center;
+  column-gap: 14px;
+  row-gap: 2px;
+  padding: 4px 2px;
+}
+
+.play {
+  grid-area: play;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: none;
+  background: var(--accent);
+  color: #1a1205;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.08s ease, background 0.15s ease;
+}
+.play:hover {
+  background: #d8b35e;
+}
+.play:active {
+  transform: scale(0.95);
+}
+.play svg {
+  fill: currentColor;
+}
+.play.loading {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.volume {
+  grid-area: volume;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mute {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+}
+.mute svg {
+  fill: currentColor;
+}
+.mute:hover {
+  color: var(--text);
+}
+
+#volume-slider {
+  flex: 1;
+  appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--line);
+  cursor: pointer;
+}
+#volume-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--text);
+  border: none;
+}
+
+.status {
+  grid-area: status;
+  font-size: 11px;
+  color: var(--text-faint);
+  min-height: 14px;
+}
+.status.error {
+  color: #e0795f;
+}
+
+/* ---- history ---- */
+.history {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+}
+
+.history-head {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
+  margin-bottom: 6px;
+}
+
+.history-list {
+  list-style: none;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.history-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid rgba(42, 49, 61, 0.5);
+}
+.history-list li:last-child {
+  border-bottom: none;
+}
+
+.h-main {
+  font-size: 12.5px;
+  line-height: 1.3;
+}
+.h-main .h-composer {
+  font-weight: 600;
+}
+.h-sub {
+  font-size: 11px;
+  color: var(--text-dim);
+}
+.h-time {
+  font-size: 10px;
+  color: var(--text-faint);
+}
+
+.history-empty {
+  font-size: 12px;
+  color: var(--text-faint);
+}
+
+/* scrollbar */
+.history-list::-webkit-scrollbar {
+  width: 6px;
+}
+.history-list::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: 3px;
+}
+
+/* Window mode: a touch roomier. */
+body[data-mode="window"] .artwork {
+  width: 156px;
+  height: 156px;
+}

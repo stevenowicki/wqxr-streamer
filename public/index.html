@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>WQXR Streamer — WQXR in your Mac menu bar</title>
+    <meta
+      name="description"
+      content="A clean, native macOS menu-bar player for WQXR, New York's classical music station. One click to play or pause, with now-playing and recently-played info. Free, signed, and notarized."
+    />
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+    <link rel="apple-touch-icon" href="icon-180.png" />
+    <meta property="og:title" content="WQXR Streamer" />
+    <meta property="og:description" content="WQXR in your Mac menu bar — one click from play, never lost behind your windows." />
+    <meta property="og:image" content="icon.png" />
+    <meta property="og:type" content="website" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- ===================== NAV ===================== -->
+    <nav class="nav">
+      <div class="wrap">
+        <div class="nav-brand"><img src="icon.png" alt="WQXR Streamer icon" /> WQXR Streamer</div>
+        <div class="nav-links">
+          <a href="#download">Download</a>
+          <a href="#why">Why</a>
+          <a href="#wqxr">WQXR</a>
+          <a href="#docs">How to use</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ===================== HERO ===================== -->
+    <header class="hero" id="download">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow"><span class="dot"></span> For macOS · Free</span>
+          <h1>WQXR, one click from <span class="accent">play</span>.</h1>
+          <p class="tagline">
+            A clean little menu-bar player for New York's classical station. It lives up by
+            your clock — always findable, never a stray browser window — and shows you exactly
+            what's playing and what just played.
+          </p>
+
+          <div class="dl-row">
+            <a class="btn btn-primary" href="downloads/WQXR-Streamer-1.0.0-AppleSilicon.dmg" download>
+              <svg viewBox="0 0 384 512" aria-hidden="true" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zM262.1 104.5c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+              <span>Download for Mac<span class="sub">Apple Silicon · M1, M2, M3, M4</span></span>
+            </a>
+            <a class="btn btn-secondary" href="downloads/WQXR-Streamer-1.0.0-Intel.dmg" download>
+              <svg viewBox="0 0 384 512" aria-hidden="true" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zM262.1 104.5c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+              <span>Download for Mac<span class="sub">Intel · pre-2020 Macs</span></span>
+            </a>
+          </div>
+          <p class="reassure">
+            macOS 10.13+ · Apple-signed &amp; notarized · v1.0.0 &nbsp;·&nbsp;
+            <a href="#which">Which one do I need?</a>
+          </p>
+        </div>
+
+        <!-- faithful mock of the actual popover -->
+        <div class="mock" aria-hidden="true">
+          <div class="mock-top">
+            <span class="mock-brand">WQXR</span>
+            <span class="mock-select">WQXR 105.9</span>
+          </div>
+          <div class="mock-now">
+            <div class="mock-art">🎻</div>
+            <div class="mock-show">Middays with Elliott Forrest</div>
+            <div class="mock-composer">Johann Sebastian Bach</div>
+            <div class="mock-title">Orchestral Suite No. 1 in C, BWV 1066</div>
+            <div class="mock-perf">Academy of Ancient Music · Richard Egarr</div>
+            <div class="mock-link">View on WQXR ↗</div>
+          </div>
+          <div class="mock-controls">
+            <div class="mock-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+            <div class="mock-vol"><div class="bar"></div></div>
+          </div>
+          <div class="mock-hist">
+            <div class="mock-hist-head">Recently played</div>
+            <ul>
+              <li><div class="hm"><b>Leoš Janáček</b> — Sinfonietta</div><div class="hs">Bavarian RSO · Rafael Kubelík · 1:58 PM</div></li>
+              <li><div class="hm"><b>Antonín Dvořák</b> — Slavonic Dance, Op. 46</div><div class="hs">Cleveland Orchestra · George Szell · 1:51 PM</div></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ===================== WHICH VERSION ===================== -->
+    <section id="which">
+      <div class="wrap">
+        <div class="section-intro">
+          <h2><span class="lead-in">Apple Silicon or Intel?</span> Here's how to tell.</h2>
+          <p>
+            Both downloads are the same app — they just match the chip inside your Mac. You only
+            need one. If you're not sure, it takes five seconds to check:
+          </p>
+          <p>
+            Click the <strong>Apple menu </strong> in the top-left corner of your screen, then
+            <strong>About This Mac</strong>, and look at the line near the top.
+          </p>
+        </div>
+        <div class="cards">
+          <div class="card">
+            <span class="pill pill-silicon">Apple Silicon</span>
+            <h3>Get the Apple Silicon version</h3>
+            <p>If "About This Mac" shows a <strong>Chip</strong> like:</p>
+            <ul>
+              <li>Apple M1 / M1 Pro / M1 Max / M1 Ultra</li>
+              <li>Apple M2, M3, or M4 (any variant)</li>
+            </ul>
+          </div>
+          <div class="card">
+            <span class="pill pill-intel">Intel</span>
+            <h3>Get the Intel version</h3>
+            <p>If "About This Mac" shows a <strong>Processor</strong> like:</p>
+            <ul>
+              <li>Intel Core i5 / i7 / i9</li>
+              <li>Anything that starts with "Intel"</li>
+            </ul>
+          </div>
+        </div>
+        <p class="tip">
+          <strong>When in doubt, pick Apple Silicon.</strong> Every Mac sold since late 2020 uses
+          an Apple chip, so unless yours is older, that's almost certainly the one. Grab the wrong
+          one and it simply won't open — no harm done; just come back for the other.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===================== WHY ===================== -->
+    <section id="why">
+      <div class="wrap section-intro">
+        <h2><span class="lead-in">Why this exists.</span></h2>
+        <p>
+          I listen to WQXR all day. For years that meant keeping the website open in a browser
+          window — scrunched down into a corner, forever getting buried under nine zillion other
+          tabs and windows. When a piece came on that I needed to pause for a phone call, I
+          couldn't <em>find</em> the thing. And that tiny window loved to catch a stray click and
+          wander off to some article.
+        </p>
+        <p>
+          So WQXR Streamer is the smallest possible fix: the station, packaged as a proper little
+          Mac app that lives in your menu bar. <strong>Play and pause are always one click away,
+          right next to your clock.</strong> It shows the same now-playing and recently-played
+          information the website does — the host and show, the composer and piece, who's
+          performing — and nothing more. No accounts, no clutter, no second browser window. Just
+          WQXR, where you can always reach it.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===================== FEATURES ===================== -->
+    <section>
+      <div class="wrap">
+        <div class="section-intro">
+          <h2><span class="lead-in">What you get.</span></h2>
+          <p>Everything the website gives you for listening — in a calmer, faster package.</p>
+        </div>
+        <div class="features">
+          <div class="feature"><div class="ic">🎚️</div><h3>One-click play</h3><p>A menu-bar icon that gently breathes while it's playing, so you always know where the music is coming from.</p></div>
+          <div class="feature"><div class="ic">🎼</div><h3>Now playing</h3><p>The current show and host, plus the composer, piece, and performers — exactly what's on the air right now.</p></div>
+          <div class="feature"><div class="ic">🕑</div><h3>Recently played</h3><p>A running list of what just aired, pulled straight from WQXR's own playlist — pre-filled the moment you open it.</p></div>
+          <div class="feature"><div class="ic">📻</div><h3>All three streams</h3><p>WQXR 105.9, the new-music channel New Sounds, and the all-opera Operavore — switch with one tap.</p></div>
+          <div class="feature"><div class="ic">⏯️</div><h3>Media keys</h3><p>Your keyboard's play/pause key and the macOS Control Center "Now Playing" tile both work, artwork and all.</p></div>
+          <div class="feature"><div class="ic">🪶</div><h3>Stays out of the way</h3><p>No dock icon, no extra window. Glance at it, then click anywhere else and it tucks itself away.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== WQXR LOVE ===================== -->
+    <section class="love" id="wqxr">
+      <div class="wrap section-intro">
+        <h2><span class="lead-in">A love letter to WQXR.</span></h2>
+        <p>
+          WQXR has been New York's classical music station for nearly a century — free, over the
+          air at 105.9 FM, and streaming to anyone, anywhere. It's the hosts who feel like old
+          friends, the live broadcasts from the city's great halls, the late-night programming
+          that keeps you company, and a daily reminder of how much beauty is just a dial away.
+          It is, quite simply, a public treasure.
+        </p>
+        <p>
+          This app is a fan's thank-you note. It doesn't replace anything WQXR makes — it just
+          gives me a tidier window onto the same wonderful broadcast, and I wanted to share it
+          with other people who love the station as much as I do.
+        </p>
+        <p>
+          If WQXR is part of <em>your</em> day too, please give back to the people who make it:
+          <a href="https://www.wqxr.org/" target="_blank" rel="noopener">support WQXR</a>. They
+          earn it every hour. <span class="heart">♥</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- ===================== DOCS ===================== -->
+    <section class="docs" id="docs">
+      <div class="wrap">
+        <div class="section-intro">
+          <h2><span class="lead-in">How to use it.</span> Everything, start to finish.</h2>
+        </div>
+        <div class="doc-block">
+
+          <h3><span class="n">1</span> Install it</h3>
+          <ol>
+            <li>Download the version that matches your Mac (<a href="#which">not sure which?</a>).</li>
+            <li>Open the downloaded <span class="kbd">.dmg</span> file.</li>
+            <li>Drag the <strong>WQXR Streamer</strong> icon onto the <strong>Applications</strong> folder in the window that appears.</li>
+            <li>Open <strong>Applications</strong> and double-click <strong>WQXR Streamer</strong>.</li>
+          </ol>
+          <div class="callout">
+            <strong>First-launch note.</strong> The app is signed with an Apple Developer ID and
+            notarized by Apple, so it should open straight away. If macOS ever hesitates,
+            right-click (or Control-click) the app icon and choose <strong>Open</strong> once —
+            after that it opens normally.
+          </div>
+
+          <h3><span class="n">2</span> Find it in the menu bar</h3>
+          <p>
+            WQXR Streamer has <strong>no dock icon</strong> — it lives in the menu bar at the top
+            of your screen, as the small <strong>WQXR</strong> wordmark near your clock. The first
+            time it launches, the player pops open automatically so you know it's there. While
+            audio is playing, the icon <strong>gently pulses</strong>.
+          </p>
+
+          <h3><span class="n">3</span> Play and pause</h3>
+          <ul>
+            <li><strong>Left-click</strong> the menu-bar icon to open the player, then press the big round <strong>play / pause</strong> button.</li>
+            <li>Or <strong>right-click</strong> the icon and choose <strong>Play / Pause</strong> — no need to open the player at all.</li>
+            <li>Your keyboard's <span class="kbd">play/pause</span> media key works too, as does the <strong>Now Playing</strong> control in macOS Control Center.</li>
+          </ul>
+
+          <h3><span class="n">4</span> See what's playing</h3>
+          <p>Open the player (left-click the icon) and you'll see, top to bottom:</p>
+          <ul>
+            <li>The current <strong>show and host</strong> (e.g. "Middays with Elliott Forrest").</li>
+            <li>The <strong>composer</strong>, the <strong>piece</strong>, and the <strong>performers</strong> on the air right now.</li>
+            <li><strong>View on WQXR</strong> — opens the recording's page in your normal web browser.</li>
+            <li><strong>Recently played</strong> — the pieces that aired just before this one, with the time each began.</li>
+          </ul>
+
+          <h3><span class="n">5</span> Switch stations</h3>
+          <p>
+            Use the small menu at the top-right of the player, or right-click the menu-bar icon, to
+            switch between <strong>WQXR 105.9</strong>, <strong>New Sounds</strong>, and
+            <strong>Operavore</strong>. If you're already listening, it jumps right to the new
+            station; if you're paused, it waits for you to press play.
+          </p>
+
+          <h3><span class="n">6</span> Volume</h3>
+          <p>
+            Drag the slider in the player to set the app's own volume, or click the speaker icon to
+            mute. (This is separate from your Mac's system volume.)
+          </p>
+
+          <h3><span class="n">7</span> Tuck it away</h3>
+          <p>
+            Glance at the player, then <strong>click anywhere else</strong> and it disappears,
+            leaving just the menu-bar icon. Click the icon again whenever you want it back. Prefer
+            a regular window? Right-click the icon and choose <strong>Open Window</strong>.
+          </p>
+
+          <h3><span class="n">8</span> Start playing on launch (optional)</h3>
+          <p>
+            By default the app starts quiet and waits for you. If you'd rather it pick up your last
+            station the moment it opens, right-click the menu-bar icon and turn on
+            <strong>Play on launch</strong>. Combine it with adding the app to your macOS
+            <strong>Login Items</strong> (System Settings → General → Login Items) and WQXR will be
+            playing the instant you sit down.
+          </p>
+
+          <h3><span class="n">9</span> Quit</h3>
+          <p>
+            Closing the player window just hides it — the app keeps playing in the menu bar. To
+            quit completely, <strong>right-click the menu-bar icon</strong> and choose
+            <strong>Quit WQXR Streamer</strong>.
+          </p>
+
+          <h3><span class="n">10</span> Update to a new version</h3>
+          <p>
+            When a new version is posted here, download it, quit the running app (step 9), and drag
+            the new copy into Applications, replacing the old one. Your station and volume settings
+            are remembered.
+          </p>
+
+          <div class="callout">
+            <strong>If the audio doesn't start right away</strong> on a cold connection, give it a
+            second — the app automatically retries and reconnects to the live stream on its own.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CONTACT ===================== -->
+    <section class="contact" id="contact">
+      <div class="wrap section-intro" style="margin: 0 auto;">
+        <h2><span class="lead-in">Got an idea?</span></h2>
+        <p>
+          This is a labor of love, and I'd genuinely like to hear what would make it better for
+          you. Feature requests, bugs, kind words — they're all welcome.
+        </p>
+        <a class="btn btn-primary" href="mailto:stevenowicki@gmail.com?subject=WQXR%20Streamer%20feature%20request">
+          ✉️ &nbsp;Email me a feature request
+        </a>
+      </div>
+    </section>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer>
+      <div class="wrap">
+        <p class="disclaimer">
+          <strong>WQXR Streamer is an independent, unofficial fan project.</strong> It is not
+          affiliated with, sponsored by, or endorsed by WQXR or New York Public Radio. "WQXR" and
+          related names and logos are trademarks of New York Public Radio. All audio and
+          now-playing information is provided by WQXR's own public streams and is &copy; their
+          respective owners. This app simply plays the same broadcast WQXR already offers for free —
+          please support the station directly at
+          <a href="https://www.wqxr.org/" target="_blank" rel="noopener">wqxr.org</a>.
+        </p>
+        <div class="foot-meta">
+          <span>Made with ♥ by Steve Nowicki</span>
+          <span>WQXR Streamer v1.0.0 · macOS</span>
+          <a href="mailto:stevenowicki@gmail.com?subject=WQXR%20Streamer">Contact</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

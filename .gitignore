@@ -1,0 +1,11 @@
+node_modules/
+dist/
+*.log
+.DS_Store
+
+# Signing / notarization credentials — never commit these
+.env
+*.p8
+
+# Built installers staged for the website (large binaries; rebuilt from dist/)
+public/downloads/
