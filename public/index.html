@@ -3,24 +3,24 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>WQXR Streamer — WQXR in your Mac menu bar</title>
+    <title>WQXR Streamer — WQXR in your menu bar (Mac &amp; Windows)</title>
     <meta
       name="description"
-      content="A clean, native macOS menu-bar player for WQXR, New York's classical music station. One click to play or pause, with now-playing and recently-played info. Free, signed, and notarized."
+      content="A clean, native menu-bar / system-tray player for WQXR, New York's classical music station — for macOS and Windows. One click to play or pause, with now-playing and recently-played info. Free, signed, and notarized."
     />
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
     <link rel="apple-touch-icon" href="icon-180.png" />
     <meta property="og:title" content="WQXR Streamer — always one click from play" />
-    <meta property="og:description" content="WQXR, New York's classical station, parked in your Mac menu bar. One click from play, with the show, composer, and piece — never a stray browser tab. Free, signed, unofficial." />
+    <meta property="og:description" content="WQXR, New York's classical station, parked in your menu bar (Mac) or system tray (Windows). One click from play, with the show, composer, and piece — never a stray browser tab. Free, signed, unofficial." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://content.stevenowicki.com/wqxr/" />
     <meta property="og:image" content="https://content.stevenowicki.com/wqxr/og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="WQXR Streamer — always one click from play. A macOS menu-bar player for WQXR." />
+    <meta property="og:image:alt" content="WQXR Streamer — always one click from play. A menu-bar / system-tray player for WQXR, on macOS and Windows." />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="WQXR Streamer — always one click from play" />
-    <meta name="twitter:description" content="WQXR's live classical stream, parked in your Mac menu bar. The music you love, minus the browser tab." />
+    <meta name="twitter:description" content="WQXR's live classical stream, parked in your menu bar (Mac) or system tray (Windows). The music you love, minus the browser tab." />
     <meta name="twitter:image" content="https://content.stevenowicki.com/wqxr/og.png" />
     <link rel="stylesheet" href="styles.css" />
   </head>
@@ -42,27 +42,28 @@
     <header class="hero" id="download">
       <div class="wrap hero-grid">
         <div>
-          <span class="eyebrow"><span class="dot"></span> For macOS · Free</span>
+          <span class="eyebrow"><span class="dot"></span> For macOS &amp; Windows · Free</span>
           <h1>WQXR, one click from <span class="accent">play</span>.</h1>
           <p class="tagline">
-            A clean little menu-bar player for New York's classical station. It lives up by
-            your clock — always findable, never a stray browser window — and shows you exactly
-            what's playing and what just played.
+            A clean little tray player for New York's classical station — up by the clock on
+            your Mac, or down in the Windows system tray. Always findable, never a stray
+            browser window, and it shows you exactly what's playing and what just played.
           </p>
 
           <div class="dl-row">
             <a class="btn btn-primary" href="https://github.com/stevenowicki/wqxr-streamer/releases/latest/download/WQXR-Streamer-AppleSilicon.dmg">
               <svg viewBox="0 0 384 512" aria-hidden="true" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zM262.1 104.5c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
-              <span>Download for Mac<span class="sub">Apple Silicon · M1, M2, M3, M4</span></span>
+              <span>Download for Mac<span class="sub">Apple Silicon · M1–M4</span></span>
             </a>
-            <a class="btn btn-secondary" href="https://github.com/stevenowicki/wqxr-streamer/releases/latest/download/WQXR-Streamer-Intel.dmg">
-              <svg viewBox="0 0 384 512" aria-hidden="true" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zM262.1 104.5c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
-              <span>Download for Mac<span class="sub">Intel · pre-2020 Macs</span></span>
+            <a class="btn btn-primary" href="https://github.com/stevenowicki/wqxr-streamer/releases/latest/download/WQXR-Streamer-Setup.exe">
+              <svg viewBox="0 0 448 512" aria-hidden="true" fill="currentColor"><path d="M0 93.7l183.6-25.3v177.4H0V93.7zm0 324.6l183.6 25.3V268.4H0v149.9zm203.8 28L448 480V268.4H203.8v177.9zm0-380.6v180.1H448V32L203.8 65.7z"/></svg>
+              <span>Download for Windows<span class="sub">Windows 10 &amp; 11 · 64-bit</span></span>
             </a>
           </div>
           <p class="reassure">
-            macOS 10.13+ · Apple-signed &amp; notarized · v1.0.0 &nbsp;·&nbsp;
-            <a href="#which">Which one do I need?</a>
+            macOS 10.13+ · Windows 10 &amp; 11 · signed &amp; notarized · v1.0.0 &nbsp;·&nbsp;
+            <a href="https://github.com/stevenowicki/wqxr-streamer/releases/latest/download/WQXR-Streamer-Intel.dmg">Intel Mac?</a>
+            &nbsp;·&nbsp; <a href="#which">Which Mac?</a>
           </p>
         </div>
 
@@ -99,14 +100,14 @@
     <section id="which">
       <div class="wrap">
         <div class="section-intro">
-          <h2><span class="lead-in">Apple Silicon or Intel?</span> Here's how to tell.</h2>
+          <h2><span class="lead-in">Which download?</span></h2>
           <p>
-            Both downloads are the same app — they just match the chip inside your Mac. You only
-            need one. If you're not sure, it takes five seconds to check:
+            <strong>On Windows</strong>, there's just one — the installer above. You're done.
           </p>
           <p>
-            Click the <strong>Apple menu </strong> in the top-left corner of your screen, then
-            <strong>About This Mac</strong>, and look at the line near the top.
+            <strong>On a Mac</strong>, the two builds simply match the chip inside, and you only
+            need one. Not sure which? Five seconds: click the <strong>Apple menu </strong> in the
+            top-left corner, choose <strong>About This Mac</strong>, and read the line near the top.
           </p>
         </div>
         <div class="cards">
@@ -150,8 +151,9 @@
         </p>
         <p>
           So WQXR Streamer is the smallest possible fix: the station, packaged as a proper little
-          Mac app that lives in your menu bar. <strong>Play and pause are always one click away,
-          right next to your clock.</strong> It shows the same now-playing and recently-played
+          desktop app that lives in your menu bar (or the Windows system tray). <strong>Play and
+          pause are always one click away, right next to your clock.</strong> It shows the same
+          now-playing and recently-played
           information the website does — the host and show, the composer and piece, who's
           performing — and nothing more. No accounts, no clutter, no second browser window. Just
           WQXR, where you can always reach it.
@@ -167,7 +169,7 @@
           <p>Everything the website gives you for listening — in a calmer, faster package.</p>
         </div>
         <div class="features">
-          <div class="feature"><div class="ic">🎚️</div><h3>One-click play</h3><p>A menu-bar icon that gently breathes while it's playing, so you always know where the music is coming from.</p></div>
+          <div class="feature"><div class="ic">🎚️</div><h3>One-click play</h3><p>A menu-bar (macOS) or system-tray (Windows) icon that's always one click from play — and on macOS it gently breathes while playing, so you know where the music's coming from.</p></div>
           <div class="feature"><div class="ic">🎼</div><h3>Now playing</h3><p>The current show and host, plus the composer, piece, and performers — exactly what's on the air right now.</p></div>
           <div class="feature"><div class="ic">🕑</div><h3>Recently played</h3><p>A running list of what just aired, pulled straight from WQXR's own playlist — pre-filled the moment you open it.</p></div>
           <div class="feature"><div class="ic">📻</div><h3>All three streams</h3><p>WQXR 105.9, the new-music channel New Sounds, and the all-opera Operavore — switch with one tap.</p></div>
@@ -210,32 +212,43 @@
         <div class="doc-block">
 
           <h3><span class="n">1</span> Install it</h3>
+          <p><strong>On macOS:</strong></p>
           <ol>
-            <li>Download the version that matches your Mac (<a href="#which">not sure which?</a>).</li>
+            <li>Download the build that matches your Mac (<a href="#which">not sure which?</a>).</li>
             <li>Open the downloaded <span class="kbd">.dmg</span> file.</li>
             <li>Drag the <strong>WQXR Streamer</strong> icon onto the <strong>Applications</strong> folder in the window that appears.</li>
             <li>Open <strong>Applications</strong> and double-click <strong>WQXR Streamer</strong>.</li>
           </ol>
+          <p><strong>On Windows:</strong></p>
+          <ol>
+            <li>Download <span class="kbd">WQXR-Streamer-Setup.exe</span> and double-click it.</li>
+            <li>It installs for just you — no admin prompt, no wizard — and launches itself.</li>
+          </ol>
           <div class="callout">
-            <strong>First-launch note.</strong> The app is signed with an Apple Developer ID and
-            notarized by Apple, so it should open straight away. If macOS ever hesitates,
-            right-click (or Control-click) the app icon and choose <strong>Open</strong> once —
-            after that it opens normally.
+            <strong>First-launch note.</strong> Both builds are code-signed — macOS with an Apple
+            Developer ID (and notarized by Apple); Windows via Azure Trusted Signing. If
+            <strong>macOS</strong> ever hesitates, right-click (or Control-click) the app icon and
+            choose <strong>Open</strong> once. If <strong>Windows SmartScreen</strong> shows a blue
+            prompt for this still-new app, click <strong>More info → Run anyway</strong> — it stops
+            appearing as more people download it.
           </div>
 
-          <h3><span class="n">2</span> Find it in the menu bar</h3>
+          <h3><span class="n">2</span> Find it (menu bar / system tray)</h3>
           <p>
-            WQXR Streamer has <strong>no dock icon</strong> — it lives in the menu bar at the top
-            of your screen, as the small <strong>WQXR</strong> wordmark near your clock. The first
-            time it launches, the player pops open automatically so you know it's there. While
-            audio is playing, the icon <strong>gently pulses</strong>.
+            WQXR Streamer has <strong>no dock or taskbar button</strong>. On <strong>macOS</strong>
+            it lives in the <strong>menu bar</strong> at the top of your screen; on
+            <strong>Windows</strong> it's in the <strong>system tray</strong> (notification area,
+            bottom-right by the clock — click the <span class="kbd">^</span> if it's hidden in the
+            overflow tray). Either way it's the small <strong>WQXR</strong> wordmark. The first time
+            it launches, the player pops open automatically so you know it's there. While audio is
+            playing, the macOS icon <strong>gently pulses</strong>.
           </p>
 
           <h3><span class="n">3</span> Play and pause</h3>
           <ul>
             <li><strong>Left-click</strong> the menu-bar icon to open the player, then press the big round <strong>play / pause</strong> button.</li>
             <li>Or <strong>right-click</strong> the icon and choose <strong>Play / Pause</strong> — no need to open the player at all.</li>
-            <li>Your keyboard's <span class="kbd">play/pause</span> media key works too, as does the <strong>Now Playing</strong> control in macOS Control Center.</li>
+            <li>Your keyboard's <span class="kbd">play/pause</span> media key works too — as does the macOS Control Center <strong>Now Playing</strong> tile and the Windows media controls (the volume/now-playing flyout and lock screen).</li>
           </ul>
 
           <h3><span class="n">4</span> See what's playing</h3>
@@ -258,37 +271,40 @@
           <h3><span class="n">6</span> Volume</h3>
           <p>
             Drag the slider in the player to set the app's own volume, or click the speaker icon to
-            mute. (This is separate from your Mac's system volume.)
+            mute. (This is the app's own volume, separate from your system volume.)
           </p>
 
           <h3><span class="n">7</span> Tuck it away</h3>
           <p>
             Glance at the player, then <strong>click anywhere else</strong> and it disappears,
-            leaving just the menu-bar icon. Click the icon again whenever you want it back. Prefer
+            leaving just the tray icon. Click the icon again whenever you want it back. Prefer
             a regular window? Right-click the icon and choose <strong>Open Window</strong>.
           </p>
 
           <h3><span class="n">8</span> Start playing on launch (optional)</h3>
           <p>
             By default the app starts quiet and waits for you. If you'd rather it pick up your last
-            station the moment it opens, right-click the menu-bar icon and turn on
-            <strong>Play on launch</strong>. Combine it with adding the app to your macOS
-            <strong>Login Items</strong> (System Settings → General → Login Items) and WQXR will be
-            playing the instant you sit down.
+            station the moment it opens, right-click the icon and turn on
+            <strong>Play on launch</strong>. Pair it with launching the app at login —
+            <strong>macOS:</strong> System Settings → General → Login Items;
+            <strong>Windows:</strong> drop a shortcut in the Startup folder (press
+            <span class="kbd">Win + R</span>, run <span class="kbd">shell:startup</span>) — and WQXR
+            is playing the instant you sit down.
           </p>
 
           <h3><span class="n">9</span> Quit</h3>
           <p>
-            Closing the player window just hides it — the app keeps playing in the menu bar. To
-            quit completely, <strong>right-click the menu-bar icon</strong> and choose
-            <strong>Quit WQXR Streamer</strong>.
+            Closing the player window just hides it — the app keeps playing in the tray. To
+            quit completely, <strong>right-click the icon</strong> (menu bar on macOS, system tray
+            on Windows) and choose <strong>Quit WQXR Streamer</strong>.
           </p>
 
           <h3><span class="n">10</span> Update to a new version</h3>
           <p>
-            When a new version is posted here, download it, quit the running app (step 9), and drag
-            the new copy into Applications, replacing the old one. Your station and volume settings
-            are remembered.
+            When a new version is posted here, download it and quit the running app (step 9), then
+            install over the old one — <strong>macOS:</strong> drag the new copy into Applications;
+            <strong>Windows:</strong> run the new <span class="kbd">Setup.exe</span>. Your station
+            and volume settings are remembered.
           </p>
 
           <div class="callout">
@@ -327,7 +343,7 @@
         </p>
         <div class="foot-meta">
           <span>Made with ♥ by Steve Nowicki</span>
-          <span>WQXR Streamer v1.0.0 · macOS</span>
+          <span>WQXR Streamer v1.0.0 · macOS &amp; Windows</span>
           <a href="https://github.com/stevenowicki/wqxr-streamer" target="_blank" rel="noopener">Open source on GitHub</a>
           <a href="mailto:stevenowicki@gmail.com?subject=WQXR%20Streamer">Contact</a>
         </div>
