@@ -8,12 +8,14 @@ Builds are produced by [electron-builder](https://www.electron.build/) using
 | `npm run pack` | **Unsigned** Apple Silicon build — quick local test, no cert needed. |
 | `npm run dist:mac` | **Apple Silicon** `.dmg` (arm64, ~94 MB). Signs/notarizes if creds are set (below). |
 | `npm run dist:mac:intel` | **Intel** `.dmg` (x64) — only if you need to support pre-2020 Macs. |
+| `npm run dist:win` | **Windows** NSIS installer. Unsigned locally; signed in CI — see [Windows](#windows-signed-installer-via-azure-trusted-signing--github-actions). |
 
 > Per-arch DMGs, not a universal binary — modern users don't download Intel code
 > they'll never run. Apple Silicon is the default; Intel is opt-in.
 >
-> Mac-only for now. Windows/Linux targets were intentionally left out; they're a
-> few lines to add back in `electron-builder.config.cjs` later.
+> **macOS DMGs are built locally; the Windows `.exe` is built + signed in CI**
+> (`.github/workflows/windows-release.yml`). Linux is the only target intentionally
+> left out — a few lines in `electron-builder.config.cjs` if ever wanted.
 
 > **DMG stapling:** electron-builder notarizes and staples the `.app`, but not the
 > `.dmg` container. After `dist:mac`, also staple the dmg so the disk image itself

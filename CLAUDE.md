@@ -6,10 +6,10 @@ to discover.
 
 ## What this is
 
-A small, native **macOS menu-bar player** for [WQXR](https://www.wqxr.org/), New
-York's classical radio station. Plain Electron + vanilla JS, **zero runtime
-dependencies**. It streams the station and mirrors the station's own now-playing /
-recently-played info. That's the whole scope.
+A small, native **menu-bar / system-tray player** for [WQXR](https://www.wqxr.org/),
+New York's classical radio station — shipped for **macOS and Windows**. Plain
+Electron + vanilla JS, **zero runtime dependencies**. It streams the station and
+mirrors the station's own now-playing / recently-played info. That's the whole scope.
 
 > **Unofficial fan project.** Not affiliated with or endorsed by WQXR / New York
 > Public Radio. **Scope rule:** do only what wqxr.org already does (stream + show
@@ -108,6 +108,19 @@ all views + tray update. Stream/volume follow the same path.
 - History is seeded from WQXR's own `playlist-daily` feed on launch, then appended
   live — so it's their data, not ours.
 
+**Cross-platform (`process.platform` guards — mind these if you touch tray/windows):**
+- Tray image: a monochrome **template** PNG on macOS (auto-adapts to light/dark menu
+  bar) vs a **colored** `tray.png` on Windows/Linux — see `trayImage()`.
+- The **breathing pulse is macOS-only** (`startPulse()` bails on non-darwin).
+- The `app.focus({ steal: true })` show trick and the stable-bounds launch positioning
+  are darwin paths; `positionPopoverNear()` has a non-darwin branch that anchors above
+  the bottom-right tray. The Windows popover/positioning hasn't been re-tested on real
+  hardware — verify if you change it.
+- Windows CI builds need **space-free exe/installer names** (`win.executableName`,
+  `nsis.artifactName`): the Azure signing module splits file paths on spaces. Also
+  `dist:win` passes `--publish never` (electron-builder would otherwise try to publish
+  in CI and fail). Both noted in DISTRIBUTION.md.
+
 ## Data sources
 
 | What | URL |
@@ -128,9 +141,10 @@ np.setStream('wqxr');
 
 ## Build & distribution
 
-macOS only today (Electron, so largely cross-platform; only the Mac target is
-produced). Per-arch DMGs, signed + notarized. Full walkthrough — Developer ID cert,
-`.env` credentials, dmg stapling, **cutting a GitHub release** — is in
+Ships for **macOS and Windows**. macOS = per-arch DMGs, signed (Developer ID) +
+notarized, built locally. Windows = NSIS installer, signed (Azure Trusted Signing),
+built in CI (see below — no PC needed). Full walkthrough — certs, `.env` credentials,
+dmg stapling, Azure setup, **cutting a GitHub release** — is in
 **[DISTRIBUTION.md](DISTRIBUTION.md)**.
 
 ```bash
@@ -151,8 +165,9 @@ secret list, and the platform behavior still to test on Windows are in
 DISTRIBUTION.md → "Windows".
 
 **Downloads are hosted on GitHub Releases** (repo `stevenowicki/wqxr-streamer`),
-under stable names (`WQXR-Streamer-AppleSilicon.dmg`, `-Intel.dmg`) so the website's
-`/releases/latest/download/...` links never break.
+under stable names (`WQXR-Streamer-AppleSilicon.dmg`, `-Intel.dmg`,
+`WQXR-Streamer-Setup.exe`) so the website's `/releases/latest/download/...` links
+never break.
 
 ## Website & deploy
 
