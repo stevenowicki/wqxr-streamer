@@ -163,13 +163,14 @@ minutes are free. (`build/icon.ico` is already generated.)
    individuals, ~10–20 min). Wait for **Completed**.
 3. **Certificate profile** — account → Objects → **Certificate profiles** → Create →
    **Public Trust** → pick your completed validation. Note the **profile name**; the
-   cert CN is your validated name (= `AZURE_PUBLISHER_NAME`).
+   cert CN is your validated name (the publisher Windows users will see).
 4. **App registration (CI identity)** — Entra ID → App registrations → New (e.g.
    `wqxr-streamer-ci`). Note **Application (client) ID** + **Directory (tenant) ID**;
    Certificates & secrets → New client secret → copy the **Value**.
 5. **Grant the signer role** — back on the Trusted Signing **account** → Access control
-   (IAM) → Add role assignment → **Trusted Signing Certificate Profile Signer** →
-   assign to the **app registration** (NOT your user; scope = the account).
+   (IAM) → Add role assignment → **Artifact Signing Certificate Profile Signer**
+   (the role was renamed from "Trusted Signing…") → assign to the **app
+   registration** (NOT your user; scope = the account).
 
 ### Repo secrets (Settings → Secrets and variables → Actions)
 
@@ -181,7 +182,16 @@ minutes are free. (`build/icon.ico` is already generated.)
 | `AZURE_ENDPOINT` | e.g. `https://eus.codesigning.azure.net/` |
 | `AZURE_CODE_SIGNING_NAME` | Trusted Signing account name |
 | `AZURE_CERT_PROFILE_NAME` | certificate profile name |
-| `AZURE_PUBLISHER_NAME` | your validated CN, e.g. `Steve Nowicki` |
+
+> **Three gotchas already baked into the config** (the build is green; noted in
+> case the tooling regresses):
+> 1. **No `publisherName`** in `azureSignOptions` — the current TrustedSigning module
+>    dropped it; electron-builder 25.x errors if it's passed. Publisher comes from the
+>    cert subject. (So there's deliberately no `AZURE_PUBLISHER_NAME` secret.)
+> 2. **Space-free exe/installer names** (`win.executableName`, `nsis.artifactName`) —
+>    the signing module splits the file path on spaces, so "WQXR Streamer.exe" fails.
+> 3. **`--publish never`** on `dist:win` — electron-builder auto-publishes in CI and
+>    dies on a missing `GH_TOKEN`; the workflow's own upload step ships the asset.
 
 ### Cut the Windows build
 

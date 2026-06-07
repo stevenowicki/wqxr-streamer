@@ -11,7 +11,8 @@ name: Windows installer (build · sign · release)
 #   AZURE_ENDPOINT           e.g. https://eus.codesigning.azure.net/  (your region)
 #   AZURE_CODE_SIGNING_NAME  the Trusted Signing account name
 #   AZURE_CERT_PROFILE_NAME  the certificate profile name
-#   AZURE_PUBLISHER_NAME     your validated CN, e.g. "Steve Nowicki"
+# (No publisherName secret — the current TrustedSigning module derives the
+#  publisher from the cert subject; passing it breaks electron-builder 25.x.)
 
 on:
   workflow_dispatch:
@@ -48,7 +49,6 @@ jobs:
           AZURE_ENDPOINT: ${{ secrets.AZURE_ENDPOINT }}
           AZURE_CODE_SIGNING_NAME: ${{ secrets.AZURE_CODE_SIGNING_NAME }}
           AZURE_CERT_PROFILE_NAME: ${{ secrets.AZURE_CERT_PROFILE_NAME }}
-          AZURE_PUBLISHER_NAME: ${{ secrets.AZURE_PUBLISHER_NAME }}
 
       - name: Give the installer a stable asset name
         shell: bash
