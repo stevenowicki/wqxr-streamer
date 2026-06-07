@@ -56,6 +56,16 @@ const config = {
   win: {
     target: ['nsis'],
     icon: 'build/icon.ico',
+    // No spaces in the exe filename: the Azure TrustedSigning module splits the
+    // file path on spaces, so "WQXR Streamer.exe" fails to sign. The app's
+    // display name (productName) stays "WQXR Streamer".
+    executableName: 'WQXR-Streamer',
+  },
+
+  // Installer filename also space-free (same signing reason). Single quotes keep
+  // ${version}/${ext} as electron-builder templates, not JS interpolation.
+  nsis: {
+    artifactName: 'WQXR-Streamer-Setup-${version}.${ext}',
   },
 };
 
