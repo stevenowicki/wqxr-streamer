@@ -73,8 +73,7 @@ site links to `…/releases/latest/download/…`. The full walkthrough — Devel
 notarization, Azure Trusted Signing setup, and cutting a release — is in
 **[DISTRIBUTION.md](DISTRIBUTION.md)**. Credentials live in a git-ignored `.env`.
 
-`npm run deploy:site` packages `public/` and ships the download site to
-content.stevenowicki.com/wqxr/.
+The download/landing site source is in **`public/`** (see [CLAUDE.md](CLAUDE.md)).
 
 ## How it works
 

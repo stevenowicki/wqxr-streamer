@@ -169,20 +169,14 @@ under stable names (`WQXR-Streamer-AppleSilicon.dmg`, `-Intel.dmg`,
 `WQXR-Streamer-Setup.exe`) so the website's `/releases/latest/download/...` links
 never break.
 
-## Website & deploy
+## Website (download/landing site)
 
-The download/landing site + full user docs live in **`public/`** (`index.html`,
-`styles.css`, icons, `og.png`). It's served at
-**content.stevenowicki.com/wqxr/**.
+The download/landing page + full end-user docs are the **source** in **`public/`**
+(`index.html`, `styles.css`, icons, `og.png`); the live site at
+content.stevenowicki.com/wqxr/ is built from it. Edit `public/` — this repo owns the
+*content*, not how it's published to the live host (that's a separate, private concern).
 
-```bash
-npm run deploy:site      # = scripts/deploy-site.sh
-```
-
-That stages a tarball + declarative manifest into a watched `go-live` folder
-(`~/Projects/content.stevenowicki.com/go-live`); a privileged watcher uploads to S3
-and invalidates CloudFront. We never touch AWS. `target_prefix` is `wqxr`; deploys
-are additive. To preview locally there's a `wqxr-site` config in `.claude/launch.json`
+Preview it locally with the `wqxr-site` config in `.claude/launch.json`
 (a `python3 -m http.server` over `public/`).
 
 ## Branding & assets

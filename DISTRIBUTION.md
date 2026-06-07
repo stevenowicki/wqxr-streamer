@@ -143,7 +143,6 @@ keep working.
    ```
 4. If `package.json` `version` changed, the in-page "v1.0.0" labels are cosmetic —
    update them in `public/index.html` if you like.
-5. Ship any website changes: `npm run deploy:site` (see [CLAUDE.md](CLAUDE.md)).
 
 ## Windows: signed installer via Azure Trusted Signing + GitHub Actions
 
