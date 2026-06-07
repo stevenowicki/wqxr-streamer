@@ -82,8 +82,11 @@ if (
   process.env.AZURE_CODE_SIGNING_NAME &&
   process.env.AZURE_CERT_PROFILE_NAME
 ) {
+  // NB: do NOT pass `publisherName` — the current TrustedSigning PowerShell
+  // module dropped that parameter (publisher comes from the cert subject), and
+  // electron-builder 25.x errors with "A parameter cannot be found that matches
+  // parameter name 'publisherName'" if it's set. The cert CN is authoritative.
   config.win.azureSignOptions = {
-    publisherName: process.env.AZURE_PUBLISHER_NAME, // must equal the cert's CN
     endpoint: process.env.AZURE_ENDPOINT, // e.g. https://eus.codesigning.azure.net/
     codeSigningAccountName: process.env.AZURE_CODE_SIGNING_NAME,
     certificateProfileName: process.env.AZURE_CERT_PROFILE_NAME,
